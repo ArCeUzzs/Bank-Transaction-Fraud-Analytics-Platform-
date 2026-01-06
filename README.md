@@ -1,64 +1,68 @@
-# Bank Transaction Fraud Analytics Platform
-
----
+# 🏦 Bank Transaction Fraud Analytics Platform
 
 ## 📌 Overview
 
-This project implements a **real-world fraud analytics backend system** for banking transactions.  
-It leverages advanced SQL techniques and a RESTful API layer to detect complex fraud patterns, compute account-level risk, and expose actionable insights for downstream applications such as dashboards or investigation tools.
+This project implements a **production-style backend system** for detecting and analyzing fraudulent banking transactions.  
+It combines advanced SQL analytics with a **FastAPI REST layer**, enabling financial systems to trace complex fraud patterns, score account-level risk, and expose actionable insights.
 
-The system simulates how modern financial institutions analyze large volumes of transaction data to identify suspicious behavior, trace fraud chains, and ensure transaction integrity.
+The platform simulates how modern banks analyze high-volume transaction data to identify suspicious behavior and maintain financial integrity.
 
 ---
 
 ## 🎯 Problem Statement
 
-Banks process millions of transactions daily, making **manual fraud detection impractical**.  
-This project addresses key fraud analytics challenges:
+Banks process **millions of transactions daily**, making manual fraud detection impractical.  
+This platform addresses key fraud analytics challenges:
 
 - Trace multi-hop fraudulent money transfers  
 - Detect repeated suspicious behavior over time  
 - Prioritize accounts for investigation using risk scoring  
 - Validate transaction balance consistency  
-- Make fraud insights consumable by applications, not just SQL queries  
+- Expose fraud insights via APIs instead of raw SQL  
 
 ---
 
 ## 🧠 Key Features
 
 ### 🔁 Fraud Chain Detection
-- Uses **recursive CTEs** to trace how fraudulent funds move across multiple accounts over time.  
-- Helps identify **money-laundering-style transaction chains**.
+- Recursive CTEs trace how fraudulent funds move across multiple accounts  
+- Identifies money-laundering-style transaction chains  
 
 ### 📊 Rolling Fraud Pattern Analysis
-- Applies **window functions** to detect repeated fraud activity within rolling time windows.  
-- Identifies accounts showing **consistent suspicious behavior**.
+- Window functions detect repeated fraud behavior over rolling transaction windows  
+- Captures near real-time fraud signals  
 
-### ⚠️ Account Fraud Risk Scoring
-- Classifies accounts into **HIGH / MEDIUM / LOW** risk based on:  
-  - Frequency of fraudulent transactions  
-  - Total fraudulent transaction amount  
-- Enables **investigation prioritization**.
+### ⚠️ Account-Level Fraud Risk Scoring
+- Risk score derived from:
+  - Fraud frequency
+  - Chain depth involvement
+  - Large transfer behavior
+  - Balance mismatch detection
+- Accounts classified as **High / Medium / Low Risk**
 
 ### 🔍 Balance Integrity Validation
-- Detects inconsistencies between expected and actual account balances.  
-- Helps uncover **system errors or fraudulent manipulation**.
+- Detects inconsistencies between expected and actual balances  
+- Flags possible manipulation or system errors  
 
 ### 🌐 RESTful API Layer
-- Exposes fraud analytics results via **FastAPI-based REST endpoints**  
-- Allows fraud insights to be consumed by:  
-  - Dashboards  
-  - Case management systems  
-  - Monitoring or alerting tools  
+- FastAPI-powered endpoints expose fraud analytics:
+  - `/fraud/top`
+  - `/fraud/account/{account}`
+  - `/fraud/chain/{account}`
+  - `/fraud/rolling/{account}`
+  - `/health`
+- Enables dashboards, monitoring systems, and investigation tools  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** FastAPI (Python)  
-- **Database:** MySQL  
-- **SQL Concepts:** Recursive CTEs, Window Functions, Multi-CTE Pipelines, Views  
-- **Tools:** Git, Postman  
+- **Backend:** Python, FastAPI  
+- **Database:** MySQL (connection pooling)  
+- **SQL:** Recursive CTEs, Window Functions, Multi-CTE Pipelines  
+- **API Docs:** Swagger (auto-generated)  
+- **Tools:** Git, Postman, dotenv  
+
 ---
 
 ## 💼 Business Use Cases
@@ -68,15 +72,15 @@ This project addresses key fraud analytics challenges:
 - Compliance and audit reporting  
 - Backend data source for fraud dashboards  
 
-----
+---
 
 ## 🏗️ System Architecture
 
 ```text
 Client / Dashboard / Analyst Tool
             ↓
-      FastAPI REST APIs
+      FastAPI REST API Layer
             ↓
-   Advanced SQL Analytics Layer
+ Advanced SQL Analytics Pipeline
             ↓
-     MySQL Transaction Database
+      MySQL Transaction Database
